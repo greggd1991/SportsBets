@@ -1,0 +1,31 @@
+body {
+margin: 0;
+}
+
+
+.btn {
+    width: 200px;
+    margin: 10px;
+    background: rgb(28, 184, 65);
+}
+
+.btn-active {
+    width: 200px;
+    margin: 10px;
+    background: red;
+}
+.menu {
+    text-align: center;
+}
+
+.header {
+    /* background-color:bisque; */
+    background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png");
+    margin-bottom: 15px;
+    padding: 5px;
+}
+h1 {
+    text-align: center;
+    font-size: 70px;
+    color: white;
+}
