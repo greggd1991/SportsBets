@@ -1,31 +1,42 @@
 body {
-margin: 0;
+  margin: 0;
 }
 
-
 .btn {
-    width: 200px;
-    margin: 10px;
-    background: rgb(28, 184, 65);
+  width: 200px;
+  margin: 10px;
+  background: rgb(28, 184, 65);
 }
 
 .btn-active {
-    width: 200px;
-    margin: 10px;
-    background: red;
+  width: 200px;
+  margin: 10px;
+  background: red;
 }
 .menu {
-    text-align: center;
+  text-align: center;
 }
 
 .header {
-    /* background-color:bisque; */
-    background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png");
-    margin-bottom: 15px;
-    padding: 5px;
+  /* background-color:bisque; */
+  /* background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png"); */
+  background-image: url("../images/sports-header.jpg");
+  margin-bottom: 15px;
+  padding: 5px;
 }
 h1 {
-    text-align: center;
-    font-size: 70px;
-    color: white;
+  text-align: left;
+  font-size: 70px;
+  color: white;
+  padding-top: 3px;
+}
+.sports-lines {
+  margin-left: 5px;
+}
+td,
+th {
+  font-size: 0.8em;
+}
+#dialog {
+  background-color: coral;
 }
