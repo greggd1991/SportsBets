@@ -23,6 +23,7 @@ body {
   background-image: url("../images/sports-header.jpg");
   margin-bottom: 15px;
   padding: 5px;
+  height: 180px;
 }
 h1 {
   text-align: left;
