@@ -1,59 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
-    <link rel="stylesheet"
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- JqueryUI assets -->
+
+    <link rel="stylesheet" href="./assets/jquery-ui/jquery-ui.min.css" />
+    <script src="./assets/jquery-ui/external/jquery/jquery.js"></script>
+    <script src="./assets/jquery-ui/jquery-ui.js"></script>
+
+    <!-- Purecss and Fontawesome assets -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+      integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"/>
+      crossorigin="anonymous"
+    />
+
     <link href="assets\css\style.css" rel="stylesheet" />
 
     <title>Sportsbets</title>
-</head>
+    <!-- Testing the JqueryUI modal -->
+    <script>
+      $(function () {
+        $("#dialog").dialog({
+          autoOpen: false,
+        });
+        $("#openDialog").click(function () {
+          $("#dialog").dialog("open");
+        });
+      });
+    </script>
+  </head>
 
-<body>
-    
-
+  <body>
     <main class="pure-g pure-u-1">
-        <header class="header">
+      <header class="header">
         <h1 class="title">SPORTSBETS</h1>
-    </header>
-        <div class="pure-u-1 pure-u-md-1-5">
-            <h2 class="menu">MENU</h2>
-            <a class="pure-button btn-active" href="#">Basketball</a>
-            <a class="pure-button btn" href="#">Baseball</a>
-            <a class="pure-button btn" href="#">Hockey</a>
-            <a class="pure-button btn" href="#">Hockey</a>
-            <a class="pure-button btn" href="#">Hockey</a>
-        </div>
-        <div class="pure-u-1 pure-u-md-2-5">
-            <h2>Upcoming Games</h2>
-            <p>time teams line moneyline <button></button></p>
-            <p>time teams line moneyline <button></button></p>
-            <p>time teams line moneyline <button></button></p>
-            <p>time teams line moneyline <button></button></p>
-            <p>time teams line moneyline <button></button></p>
-            
-        </div>
-        <div class="pure-u-1 pure-u-md-1-5">
-            <h2>Other Contents?</h2>
-            <p>User Name</p>
-            <p>Email</p>
-            <p>otherinfo</p>
-        </div>
+      </header>
+      <div class="pure-u-1 pure-u-md-1-5">
+        <h2 class="menu">MENU</h2>
+        <a id="bascketball" class="pure-button btn-active" href="#"
+          >Basketball</a
+        >
+        <a id="baseball" class="pure-button btn" href="#">Baseball</a>
+        <a id="hockey" class="pure-button btn" href="#">Hockey</a>
+        <a class="pure-button btn" href="#">Hockey</a>
+        <a id="openDialog" class="pure-button btn" href="#">Dialog Test</a>
+      </div>
+      <div class="pure-u-1 pure-u-md-2-5">
+        <h2>Upcoming Games</h2>
+        <table class="sports-lines">
+          <thead class="table-header">
+            <tr>
+              <th>GameID</th>
+              <th>Away</th>
+              <th>Line</th>
+              <th>Moneyline</th>
+              <th>Home</th>
+              <th>Line</th>
+              <th>Moneyline</th>
+              <th>Ov/Und</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5">
+        <h2>Other Contents?</h2>
+        <p>User Name</p>
+        <p>Email</p>
+        <p>otherinfo</p>
+      </div>
 
-        
-
+      <div id="dialog" title="Basic Dialog">
+        <p>
+          This is the default dialog which is useful for displaying information.
+          The dialog window can be moved, resized and closed with the
+          &apos;x&apos; icon.
+        </p>
+      </div>
     </main>
-    
+
     <footer class="footer"></footer>
+
+    <script src="assets/jss/script.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="assets/jss/script.js"></script>
-
-</body>
+  </body>
 </html>
