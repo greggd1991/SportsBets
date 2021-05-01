@@ -4,7 +4,7 @@ var baseball = document.getElementById("baseball"); // Baseball button
 var basketball = document.getElementById("basketball");
 var hockey = document.getElementById("hockey");
 var tableBody = document.getElementById("table-body");
-
+var standingsBody = document.getElementById("standings-body")
 
 // API Variables
 var baseballEndpoint = "https://v1.baseball.api-sports.io/";
@@ -133,8 +133,32 @@ function getBaseball(endpoint,params) {
     })
     .then(result => { 
       console.log(result);
-      if(endpoint == "teams") {
+      if(endpoint == "standings") {
+          for (i=0; i<result.response[0].length; i++) {
+            if (result.response[0][i].group.name !== "American League" && result.response[0][i].group.name !== "National League") {
 
+            
+            var td0 = document.createElement("td");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var td4 = document.createElement("td");
+
+            var row1 = document.createElement("tr")
+
+            td0.textContent=result.response[0][i].team.name
+            row1.appendChild(td0)
+            td1.textContent= result.response[0][i].position
+            row1.appendChild(td1)
+            td2.textContent= result.response[0][i].games.win.total
+            row1.appendChild(td2)
+            td3.textContent= result.response[0][i].games.lose.total
+            row1.appendChild(td3)
+            td4.textContent= result.response[0][i].games.win.percentage
+            row1.appendChild(td4)
+            standingsBody.appendChild(row1)
+          }
+        }
       }
   
       // console.log(result.response.length);

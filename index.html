@@ -48,7 +48,7 @@
   <body>
     <main class="pure-g pure-u-1">
       <header class="header">
-        <h1 class="title">SPORTSBETS</h1>
+        <h1 class="title"></h1>
       </header>
       <div class="pure-u-1 pure-u-md-1-5">
         <h2 class="menu">MENU</h2>
@@ -80,11 +80,21 @@
       </div>
       <div class="pure-u-1 pure-u-md-1-5">
         <h2>Other Contents?</h2>
-        <p>User Name</p>
-        <p>Email</p>
-        <p>otherinfo</p>
+        <table class="sports-standings">
+            <thead class="table-header">
+              <tr>
+                <th>Team Name</th>
+                <th>Position</th>
+                <th>Wins</th>
+                <th>Loss</th>
+                <th>Percent</th>
+              </tr>
+            </thead>
+            <tbody id="standings-body"></tbody>
+          </table>
       </div>
 
+      <!--all modal windows below-->
       <div id="dialog" title="Basic Dialog">
         <p>
           This is the default dialog which is useful for displaying information.
