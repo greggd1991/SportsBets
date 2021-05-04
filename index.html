@@ -1,113 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- JqueryUI assets -->
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="./assets/jquery-ui/jquery-ui.min.css" />
-    <script src="./assets/jquery-ui/external/jquery/jquery.js"></script>
-    <script src="./assets/jquery-ui/jquery-ui.js"></script>
+  <!-- JqueryUI assets -->
 
-    <!-- Purecss and Fontawesome assets -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
-      integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
+  <link rel="stylesheet" href="./assets/jquery-ui/jquery-ui.min.css" />
+  <script src="./assets/jquery-ui/external/jquery/jquery.js"></script>
+  <script src="./assets/jquery-ui/jquery-ui.js"></script>
 
-    <link href="assets\css\style.css" rel="stylesheet" />
+  <!-- Purecss and Fontawesome assets -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+    integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 
-    <title>Sportsbets</title>
-    <!-- Testing the JqueryUI modal -->
-    <script>
-      $(function () {
-        $("#dialog").dialog({
-          autoOpen: false,
-        });
-        $("#openDialog").click(function () {
-          $("#dialog").dialog("open");
-        });
+  <link href="assets\css\style.css" rel="stylesheet" />
+
+  <title>Sportsbets</title>
+  <!-- Testing the JqueryUI modal -->
+  <script>
+    $(function () {
+      $("#dialog").dialog({
+        autoOpen: false,
       });
-    </script>
-  </head>
+      $("#openDialog").click(function () {
+        $("#dialog").dialog("open");
+      });
+    });
+  </script>
+</head>
 
-  <body>
-    <main class="pure-g pure-u-1">
-      <header class="header">
-        <h1 class="title"></h1>
-      </header>
-      <div class="pure-u-1 pure-u-md-1-5">
-        <h2 class="menu">MENU</h2>
-        <a id="bascketball" class="pure-button btn-active" href="#"
-          >Basketball</a
-        >
-        <a id="baseball" class="pure-button btn" href="#">Baseball</a>
-        <a id="hockey" class="pure-button btn" href="#">Hockey</a>
-        <a class="pure-button btn" href="#">Hockey</a>
-        <a id="openDialog" class="pure-button btn" href="#">Dialog Test</a>
+<body>
+  <main class="pure-g pure-u-1">
+    <header class="header">
+      <h1 class="title"></h1>
+    </header>
+    <div id="menu" class="pure-u-1 pure-u-md-1-5">
+      <h2 class="menu">MENU</h2>
+      <a id="basketball" class="pure-button" href="#"><img id="nba" src="./assets/images/nba_logo.png" /></a>
+      <a id="baseball" class="pure-button btn" href="#"><img id="mlb" src="./assets/images/mlb_logo.png" /></a>
+      <a id="hockey" class="pure-button btn" href="#"><img id="nhl" src="./assets/images/nhl_logo.png" /></a>
+      <a id="openDialog" class="pure-button btn" href="#">Dialog Test</a>
+    </div>
+    <div class="pure-u-1 pure-u-md-2-5">
+      <h2>Upcoming Games</h2>
+      <table class="sports-lines">
+        <thead class="table-header">
+          <tr>
+            <th>Time</th>
+            <th>Away</th>
+            <th>Line</th>
+            <th>Prob.</th>
+            <th>Odds</th>
+            <th>Home</th>
+            <th>Line</th>
+            <th>Prob.</th>
+            <th>Odds</th>
+            <th>Ov/Und</th>
+            <th>Bet</th>
+            <!-- Button will go in this column -->
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-3">
+      <h2>Standings</h2>
+      <table class="sports-standings">
+        <thead class="table-header">
+          <tr>
+            <th></th>
+            <th style="width: 160px">Team Name</th>
+            <th>Pos</th>
+            <th>Wins</th>
+            <th>Loss</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+        <tbody id="standings-body"></tbody>
+      </table>
+    </div>
+
+    <!--all modal windows below-->
+    <div id="dialog" title="Basic Dialog">
+      <p>
+        This is the default dialog which is useful for displaying information.
+        The dialog window can be moved, resized and closed with the
+        &apos;x&apos; icon.
+      </p>
+    </div>
+
+    <div id="sports-modal" class="pure-u-1 modal">
+      <div id="pure-u-1 modal-head">
+        <header class="modalheader center">
+          Sports Betting<span id="close" class="close">&times;</span>
+        </header>
       </div>
-      <div class="pure-u-1 pure-u-md-2-5">
-        <h2>Upcoming Games</h2>
-        <table class="sports-lines">
-          <thead class="table-header">
-            <tr>
-              <th>GameID</th>
-              <th>Away</th>
-              <th>Line</th>
-              <th>Moneyline</th>
-              <th>Home</th>
-              <th>Line</th>
-              <th>Moneyline</th>
-              <th>Ov/Und</th>
-            </tr>
-          </thead>
-          <tbody id="table-body"></tbody>
-        </table>
-      </div>
-      <div class="pure-u-1 pure-u-md-1-5">
-        <h2>Other Contents?</h2>
-        <table class="sports-standings">
+      <div class="pure-g">
+        <form class="pure-form pure-u-1">
+          <table class="sports-bet">
             <thead class="table-header">
               <tr>
-                <th>Team Name</th>
-                <th>Position</th>
-                <th>Wins</th>
-                <th>Loss</th>
-                <th>Percent</th>
+                <td colspan="5"></td>
               </tr>
             </thead>
-            <tbody id="standings-body"></tbody>
+            <tbody id="sports-body">
+              <tr>
+                <td colspan="3" class="body-head">Home Team</td>
+                <td colspan="2" class="body-head">Away Team</td>
+              </tr>
+              <tr>
+                <td>Probability:</td>
+                <td colspan="2">
+                  <label id="h-prob" for="home-prob" class="pure-radio">Home-Prob</label>
+                </td>
+                <td colspan="2">
+                  <label id="a-prob" for="away-prob" class="pure-radio">Away-Prob</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Game Line:</td>
+                <td>
+                  <input type="radio" id="home-line" name="line" value="home-line" checked="" />
+                </td>
+                <td>
+                  <label id="h-line" for="home-line" class="pure-radio">Home-Line</label>
+                </td>
+                <td>
+                  <input type="radio" id="away-line" name="line" value="away-line" checked="" />
+                </td>
+                <td>
+                  <label id="a-line" for="away-line" class="pure-radio">Away-Line</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Game Odds:</td>
+                <td>
+                  <input type="radio" id="home-odds" name="odds" value="home-odds" checked="" />
+                </td>
+                <td>
+                  <label id="h-odds" for="home-odds" class="pure-radio">Home-Odds</label>
+                </td>
+                <td>
+                  <input type="radio" id="away-odds" name="odds" value="away-odds" checked="" />
+                </td>
+                <td>
+                  <label id="a-odds" for="away-odds" class="pure-radio">Away-Odds</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Over/Under:</td>
+                <td>
+                  <input type="radio" id="home-over" name="over" value="home-over" checked="" />
+                </td>
+                <td>
+                  <label id="h-over" for="home-over" class="pure-radio">Over</label>
+                </td>
+                <td>
+                  <input type="radio" id="away-over" name="over" value="away-over" checked="" />
+                </td>
+                <td>
+                  <label id="a-over" for="away-over" class="pure-radio">Under</label>
+                </td>
+              </tr>
+            </tbody>
           </table>
+        </form>
       </div>
+    </div>
+  </main>
 
-      <!--all modal windows below-->
-      <div id="dialog" title="Basic Dialog">
-        <p>
-          This is the default dialog which is useful for displaying information.
-          The dialog window can be moved, resized and closed with the
-          &apos;x&apos; icon.
-        </p>
-      </div>
-    </main>
+  <footer class="footer"></footer>
 
-    <footer class="footer"></footer>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="assets/jss/script.js"></script>
+</body>
 
-    <script src="assets/jss/script.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  </body>
 </html>

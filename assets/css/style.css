@@ -1,22 +1,48 @@
+:root {
+  --money: #009933;
+  --light: #ffff00;
+}
+
 body {
   margin: 0;
 }
 
-.btn {
+.pure-button {
   width: 200px;
   margin: 10px;
-  background: rgb(28, 184, 65);
+  background: white;
+  border: 1px solid darkblue;
+  border-radius: 5px;
+  box-shadow: 5px 6px #888888;
 }
-
+.pure-button:hover {
+  transform: scale(1.05);
+  background-color: white;
+}
+#nba,
+#nhl,
+#mlb {
+  width: 70px;
+  height: auto;
+}
 .btn-active {
   width: 200px;
   margin: 10px;
-  background: red;
+  transform: scale(0.95);
+  box-shadow: 2px 3px #888888;
 }
 .menu {
   text-align: center;
 }
-
+thead {
+  text-align: left;
+}
+.center {
+  text-align: center;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
 .header {
   /* background-color:bisque; */
   /* background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png"); */
@@ -31,13 +57,123 @@ h1 {
   color: white;
   padding-top: 3px;
 }
+
 .sports-lines {
   margin-left: 5px;
+  border-collapse: collapse;
 }
+.sports-lines td,
+.sports-lines th,
+.sports-bet td,
+.sports-bet th {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+.sports-lines tr:nth-child(even),
+.sports-bet tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.sports-lines tr:hover,
+.sports-bet tr:hover {
+  background-color: #ddd;
+}
+
+.sports-lines th,
+.sports-bet th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: darkblue;
+  color: white;
+}
+
 td,
 th {
   font-size: 0.8em;
 }
+td {
+  text-align: right;
+}
+.sports-standings {
+  width: 100%;
+}
+.sports-standings img {
+  width: 30px;
+  height: auto;
+}
+.sports-standings td {
+  text-align: left;
+}
 #dialog {
   background-color: coral;
+}
+.fas {
+  margin-right: 2px;
+  color: var(--money);
+}
+.btnBet {
+  background-color: white;
+  border-color: var(--money);
+}
+.btnBet:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: var(--light);
+}
+/* Styles for custom modal */
+#sports-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 20px;
+  top: 250px;
+  width: 90%;
+  height: 40%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: white;
+  border: 1px solid darkblue;
+  font-size: 0.8em;
+}
+
+#sports-modal input {
+  display: inline;
+}
+.sports-bet td,
+.sports-bet th {
+  font-size: 1em;
+}
+.sports-bet td {
+  text-align: center;
+}
+.body-head {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+#close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+#close:hover,
+#close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modalheader {
+  border: 1px solid black;
+  background-color: grey;
+  height: 35px;
+}
+
+/* media queries */
+@media screen and (min-width: 48em) {
+  #sports-modal {
+    width: 50%;
+    left: 200px;
+  }
 }
