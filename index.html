@@ -33,6 +33,17 @@
       });
     });
   </script>
+
+<script>
+  $(function () {
+    $("#dialog2").dialog({
+      autoOpen: false,
+    });
+    $("#openDialog2").click(function () {
+      $("#dialog2").dialog("open");
+    });
+  });
+</script>
 </head>
 
 <body>
@@ -42,10 +53,12 @@
     </header>
     <div id="menu" class="pure-u-1 pure-u-md-1-5">
       <h2 class="menu">MENU</h2>
+      <a id="openDialog" class="pure-button btn" href="#">Betting Logic</a>
+      <a id="openDialog2" class="pure-button btn" href="#">Instructions</a>
       <a id="basketball" class="pure-button" href="#"><img id="nba" src="./assets/images/nba_logo.png" /></a>
       <a id="baseball" class="pure-button btn" href="#"><img id="mlb" src="./assets/images/mlb_logo.png" /></a>
       <a id="hockey" class="pure-button btn" href="#"><img id="nhl" src="./assets/images/nhl_logo.png" /></a>
-      <a id="openDialog" class="pure-button btn" href="#">Dialog Test</a>
+      
     </div>
     <div class="pure-u-1 pure-u-md-2-5">
       <h2>Upcoming Games</h2>
@@ -87,12 +100,25 @@
     </div>
 
     <!--all modal windows below-->
-    <div id="dialog" title="Basic Dialog">
+    <div id="dialog" title="Bet Logic">
       <p>
-        This is the default dialog which is useful for displaying information.
-        The dialog window can be moved, resized and closed with the
-        &apos;x&apos; icon.
+        Placing a sportsbet is a game of skill.</p>
+        <p> The challenge is to gather and analyze as much information as you can about a game, weigh the probabilities of each team winning, and subsequently compare your opinion to the oddsmaker's.</p>
+        <p> If you want additional info <a href="https://www.actionnetwork.com/how-to-bet-on-sports/general/sports-betting-for-beginners-10-things-to-know" target=_blank>click here</a> 
+        
       </p>
+    </div>
+
+    <div id="dialog2" title="Instructions">
+      <h2>User guide</h2>
+      <ol>
+        <li>Select sport button </li>
+        <li>Click <i class="fas fa-money-bill-wave"></i> for the game you want </li>
+        <li>Choose what type of bet</li>
+        <li>Enter a bet amount </li> 
+        <li>Sumbit your bet </li>
+      </ol>
+      
     </div>
 
     <div id="sports-modal" class="pure-u-1 modal">
