@@ -47,6 +47,8 @@ thead {
   /* background-color:bisque; */
   /* background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png"); */
   background-image: url("../images/sports-header.jpg");
+  background-size: 300px 100px;
+  background-repeat: no-repeat;
   margin-bottom: 15px;
   padding: 5px;
   height: 180px;
