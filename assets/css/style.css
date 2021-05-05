@@ -15,10 +15,7 @@ body {
   border-radius: 5px;
   box-shadow: 5px 6px #888888;
 }
-.pure-button:hover {
-  transform: scale(1.05);
-  background-color: white;
-}
+
 #nba,
 #nhl,
 #mlb {
@@ -43,15 +40,20 @@ thead {
   background-color: black;
   color: white;
 }
+.center-text {
+  text-align: center;
+}
 .header {
   /* background-color:bisque; */
   /* background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png"); */
   background-image: url("../images/sports-header.jpg");
-  background-size: 300px 100px;
   background-repeat: no-repeat;
+  background-size: 100% auto;
   margin-bottom: 15px;
   padding: 5px;
   height: 180px;
+  position: sticky;
+  top: 0;
 }
 h1 {
   text-align: left;
@@ -60,7 +62,8 @@ h1 {
   padding-top: 3px;
 }
 
-.sports-lines {
+.sports-lines,
+.sports-bet {
   margin-left: 5px;
   border-collapse: collapse;
 }
@@ -131,7 +134,7 @@ td {
   left: 20px;
   top: 250px;
   width: 90%;
-  height: 40%;
+  height: 48%;
   overflow: auto; /* Enable scroll if needed */
   background-color: white;
   border: 1px solid darkblue;
@@ -140,6 +143,9 @@ td {
 
 #sports-modal input {
   display: inline;
+}
+#sports-modal form {
+  padding-left: 5px;
 }
 .sports-bet td,
 .sports-bet th {
@@ -175,7 +181,7 @@ td {
 /* media queries */
 @media screen and (min-width: 48em) {
   #sports-modal {
-    width: 50%;
-    left: 200px;
+    width: 40%;
+    left: 250px;
   }
 }

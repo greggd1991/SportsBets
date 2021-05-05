@@ -4,20 +4,22 @@ var baseball = document.getElementById("baseball"); // Baseball button
 var basketball = document.getElementById("basketball");
 var hockey = document.getElementById("hockey");
 var tableBody = document.getElementById("table-body");
+var sportsBody = document.getElementById("sports-body");
 var standingsBody = document.getElementById("standings-body");
 var pureButtons = document.getElementById("menu");
 var betModal = document.querySelectorAll(".btnBet");
 var closeBtn = document.getElementById("close");
 var modal = document.getElementById("sports-modal");
-var homeLine = document.getElementById("home-line");
-var homeProb = document.getElementById("home-prob");
-var homeOdds = document.getElementById("home-odds");
-var homeOver = document.getElementById("home=over");
+var hOdds = document.getElementById("home-odds");
+var aOdds = document.getElementById("away-odds");
+var lineBet = document.getElementById("line-bet");
+var oddsBet = document.getElementById("odds-bet");
+var overBet = document.getElementById("over-bet");
+var todaysGames = document.getElementById("todays-games");
 var awayLine = document.getElementById("away-line");
-var awayProb = document.getElementById("away-prob");
-var awayOdds = document.getElementById("away-odds");
-var awayOver = document.getElementById("away=over");
-var hOdds = document.getElementById("h-odds");
+var homeLine = document.getElementById("home-line");
+var lineWinAmt = document.getElementById("line-win-amt");
+var oddsWinAmt = document.getElementById("odds-win-amt");
 
 // API Variables
 var baseballEndpoint = "https://v1.baseball.api-sports.io/";
@@ -26,9 +28,11 @@ var basketballEndpoint = "https://v1.basketball.api-sports.io/"
 var basketballLeague = 12; //USA -NBA = 12
 var awayOdds = 0; // Used to calculate implied odds.
 var homeOdds = 0;
-var oddsCheck = "" // Checking to see if odds exists, for error handliing.
-var homePath = "" // Path to home team logo
-var awayPath = "" 
+var oddsCheck = ""; // Checking to see if odds exists, for error handling.
+var homeTeam = "";
+var awayTeam = "";
+var homePath = ""; // Path to home team logo
+var awayPath = ""; 
 var newsApI = "https://newsapi.org/v2/top-headlines?country=us&category=sports&q=" // move the key to the header, pass in the q parameter for the correct sport.
 var d = new Date();
 var n = d.getTimezoneOffset(); // UTC Time offset in minutes
@@ -66,6 +70,10 @@ function getGames(league){
   while(tableBody.hasChildNodes()) {
     tableBody.removeChild(tableBody.firstChild);
    }
+
+   var nbaLogo = "./assets/images/nba_logo.png";
+   var mlbLogo ="./assets/images/mlb_logo.png";
+   var nhlLogo = "./assets/images/nhl_logo.png";
 
   fetch("https://sportspage-feeds.p.rapidapi.com/games", {
 	"method": "GET",
@@ -111,6 +119,7 @@ for(i=0; i<data.games;++i) {
     td0.textContent = localTime.local().format("h:mm A");
     tr.appendChild(td0);
     td1.textContent = data.results[i].teams.away.abbreviation;
+    td1.setAttribute("data-team",data.results[i].teams.away.team); // Store the team for logo search
     tr.appendChild(td1);
     td2.textContent = data.results[i].odds[0].spread.current.away;
 
@@ -129,6 +138,8 @@ for(i=0; i<data.games;++i) {
     td3.textContent = data.results[i].odds[0].spread.current.awayOdds
     tr.appendChild(td3);
     td4.textContent = data.results[i].teams.home.abbreviation;
+    td4.setAttribute("data-team",data.results[i].teams.home.team);
+
     tr.appendChild(td4);
     td5.textContent = data.results[i].odds[0].spread.current.home;
     tr.appendChild(td5);
@@ -153,7 +164,11 @@ for(i=0; i<data.games;++i) {
     btnBet.appendChild(icon);
     tr.appendChild(btnBet);
     tableBody.appendChild(tr);
+  
   }
+    // Place the current league and current date above the schedule. 
+  var today = new Date();
+  todaysGames.textContent = league + " games - " + today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear();
 }
 
 })
@@ -378,11 +393,68 @@ function hockeyData() {
 }
 
 function openModal(e) {
+    // Find the team logos to display in the betting form. 
+    
     modal.style.display = "block";
-    console.log(e.target);
 }
 
+
 // Event listeners
+sportsBody.addEventListener("click", function(e){
+ 
+  switch(e.target.name) {
+    case "line":
+      if(e.target.value =="line-no-bet") {
+        lineBet.disabled = true;
+      } else {
+        lineBet.disabled = false;
+        lineBet.value = "";
+        lineBet.focus();
+      }
+      break;
+
+    case "odds":
+          if(e.target.value =="odds-no-bet") {
+        oddsBet.disabled = true;
+      } else {
+        oddsBet.disabled = false;
+        oddsBet.value = "";
+        oddsBet.focus();
+      }
+      break;
+
+    case "over":
+      if(e.target.value =="over-no-bet") {
+        overBet.disabled = true;
+      } else {
+        overBet.disabled = false;
+        overBet.value = "";
+        overBet.focus();
+      }
+      break;
+  }
+})
+  oddsBet.addEventListener("change", function() {
+  var amount = 0;
+  if(aOdds.checked){
+    amount = parseInt(aOdds.value,10);
+  }
+  if(hOdds.checked){
+    amount = parseInt(hOdds.value,10);
+  }
+
+  console.log(amount);
+
+  if(amount < 0){
+    oddsWinAmt.textContent = parseFloat((100 * oddsBet.value)/(-(amount))).toFixed(2);
+  } else {
+    oddsWinAmt.textContent = parseFloat((amount * oddsBet.value)/(100)).toFixed(2);
+  }
+  console.log(oddsBet.value);
+  console.log(amount);
+ 
+})
+
 baseball.addEventListener("click", function() {
   baseballData(); 
 });
@@ -403,14 +475,23 @@ sportsLines.addEventListener("click", function(e){
   var tableRow = rowNum.parentElement.rowIndex; // Gets the row of the button, so we can access column data.
 
   document.getElementById("h-odds").innerHTML = tableBody.childNodes[tableRow -1].childNodes[8].textContent;
+  hOdds.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[8].textContent);
+
   document.getElementById("h-line").innerHTML = tableBody.childNodes[tableRow -1].childNodes[6].textContent;
   document.getElementById("h-prob").innerHTML = tableBody.childNodes[tableRow -1].childNodes[7].textContent;
   document.getElementById("h-over").innerHTML = tableBody.childNodes[tableRow -1].childNodes[9].textContent;
 
   document.getElementById("a-odds").innerHTML = tableBody.childNodes[tableRow -1].childNodes[4].textContent;
+  aOdds.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[4].textContent);
+
   document.getElementById("a-line").innerHTML = tableBody.childNodes[tableRow -1].childNodes[2].textContent;
   document.getElementById("a-prob").innerHTML = tableBody.childNodes[tableRow -1].childNodes[3].textContent;
   document.getElementById("a-over").innerHTML = "-" + tableBody.childNodes[tableRow -1].childNodes[9].textContent;
+  document.getElementById("home-team").innerHTML = tableBody.childNodes[tableRow -1].childNodes[5].textContent;
+  document.getElementById("away-team").innerHTML = tableBody.childNodes[tableRow -1].childNodes[1].textContent;
+  homeTeam = tableBody.childNodes[tableRow -1].childNodes[5].getAttribute("data-team");
+  awayTeam = tableBody.childNodes[tableRow -1].childNodes[1].getAttribute("data-team");
+  
 })
 
 // Add or remove the active class from the buttons. Modify to just check the class
