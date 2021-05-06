@@ -12,14 +12,19 @@ var closeBtn = document.getElementById("close");
 var modal = document.getElementById("sports-modal");
 var hOdds = document.getElementById("home-odds");
 var aOdds = document.getElementById("away-odds");
+var awayLine = document.getElementById("away-line");
+var homeLine = document.getElementById("home-line");
+var noLine = document.getElementById("no-line");
+var homeOver = document.getElementById("home-over");
+var awayOver = document.getElementById("away-over");
 var lineBet = document.getElementById("line-bet");
 var oddsBet = document.getElementById("odds-bet");
 var overBet = document.getElementById("over-bet");
 var todaysGames = document.getElementById("todays-games");
-var awayLine = document.getElementById("away-line");
-var homeLine = document.getElementById("home-line");
 var lineWinAmt = document.getElementById("line-win-amt");
 var oddsWinAmt = document.getElementById("odds-win-amt");
+var overWinAmt = document.getElementById("over-win-amt");
+var saveBets = document.getElementById("saveBets");
 
 // API Variables
 var baseballEndpoint = "https://v1.baseball.api-sports.io/";
@@ -36,34 +41,9 @@ var awayPath = "";
 var newsApI = "https://newsapi.org/v2/top-headlines?country=us&category=sports&q=" // move the key to the header, pass in the q parameter for the correct sport.
 var d = new Date();
 var n = d.getTimezoneOffset(); // UTC Time offset in minutes
-
-// function getNews(league, key) {
- 
-
-//   fetch(newsApI + league +"&apiKey=" + key, {
-//     "method": "GET",
-//     "headers": {
-//       "x-Api-Key": "78705e69cb074d36b2bb222b9501638a",
-//       "Access-Control-Allow-Origin": "*", 
-//       "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-//       "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With" //,
-//       // "x-api-host": "newsapi.org"
-//     }
-
-//     }
-//   })
-//   .then(response => {
-//     return response.json();
-//   })
-//   .then(data => {
-//       console.log(data);
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
-// }
-// // Test news api
-// getNews("NBA", "78705e69cb074d36b2bb222b9501638a");
+var today = new Date();
+var whichSport = "";
+var gameID = ""; // For local storage.
 
 function getGames(league){
 
@@ -167,7 +147,7 @@ for(i=0; i<data.games;++i) {
   
   }
     // Place the current league and current date above the schedule. 
-  var today = new Date();
+  
   todaysGames.textContent = league + " games - " + today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear();
 }
 
@@ -380,21 +360,23 @@ function getBaseball(endpoint,params) {
 }
 
 function baseballData(){
-  getGames("MLB"); 
+  whichSport = "MLB";
+  getGames(whichSport); 
   getBaseball("standings", "season=2021&stage=MLB - Regular Season&league=1"); // Get the data for the MLB teams. 
 }
 function basketballData() {
-  getGames("NBA");
+  whichSport = "NBA"
+  getGames(whichSport);
   getBasketball("standings", "season=2020-2021&league=12")
 }
 function hockeyData() {
-  getGames("NHL");
+  whichSport = "NHL";
+  getGames(whichSport);
   getHockey("season=2020&league=57");
 }
 
 function openModal(e) {
-    // Find the team logos to display in the betting form. 
-    
+    // Find the team logos to display in the betting form.    
     modal.style.display = "block";
 }
 
@@ -409,6 +391,7 @@ sportsBody.addEventListener("click", function(e){
       } else {
         lineBet.disabled = false;
         lineBet.value = "";
+        lineWinAmt.textContent = "";
         lineBet.focus();
       }
       break;
@@ -419,6 +402,7 @@ sportsBody.addEventListener("click", function(e){
       } else {
         oddsBet.disabled = false;
         oddsBet.value = "";
+        oddsWinAmt.textContent = "";
         oddsBet.focus();
       }
       break;
@@ -429,32 +413,56 @@ sportsBody.addEventListener("click", function(e){
       } else {
         overBet.disabled = false;
         overBet.value = "";
+        overWinAmt.textContent = "";
         overBet.focus();
       }
       break;
   }
 })
-  oddsBet.addEventListener("change", function() {
+
+function updateBets(e){
   var amount = 0;
-  if(aOdds.checked){
-    amount = parseInt(aOdds.value,10);
-  }
-  if(hOdds.checked){
-    amount = parseInt(hOdds.value,10);
-  }
+  console.log(e.target)
+  switch (e.target.name) {
+    case "odds-bet":
+      if(aOdds.checked){
+        amount = parseInt(aOdds.value,10);
+      }
+      if(hOdds.checked){
+        amount = parseInt(hOdds.value,10);
+      }
+      if(amount < 0){
+        oddsWinAmt.textContent = parseFloat((100 * oddsBet.value)/(-(amount))).toFixed(2);
+      } else {
+        oddsWinAmt.textContent = parseFloat((amount * oddsBet.value)/(100)).toFixed(2);
+      }
 
-  console.log(amount);
-
-  if(amount < 0){
-    oddsWinAmt.textContent = parseFloat((100 * oddsBet.value)/(-(amount))).toFixed(2);
-  } else {
-    oddsWinAmt.textContent = parseFloat((amount * oddsBet.value)/(100)).toFixed(2);
+    case "line-bet":
+      if(awayLine.checked) {
+        amount = parseInt(awayLine.value,10);
+      }
+      if(homeLine.checked) {
+        amount = parseInt(homeLine.value,10);
+        lineWinAmt.textContent = parseFloat(lineBet.value);
+      }
+      
+    case "over-bet":
+      if(awayOver.checked) {
+        amount = parseInt(awayOver.value,10);
+      }
+      if(homeOver.checked) {
+        amount = parseInt(homeOver.value,10);
+        overWinAmt.textContent = parseFloat(overBet.value);
+      }
+     
   }
-  console.log(oddsBet.value);
-  console.log(amount);
- 
-})
+}
+// Update the potential winnings based on the amount bet. 
+oddsBet.addEventListener("change", updateBets);
+lineBet.addEventListener("change", updateBets);
+overBet.addEventListener("change", updateBets);
 
+// Event listeners for pulling in the games and standings. 
 baseball.addEventListener("click", function() {
   baseballData(); 
 });
@@ -464,11 +472,115 @@ basketball.addEventListener("click", function() {
 hockey.addEventListener("click", function() {
   hockeyData();
 });
+
+// Open the bet window based on the button clicked for a specific game. 
 tableBody.addEventListener("click", openModal)
 
 closeBtn.addEventListener("click",function(){
   modal.style.display = "none";
 });
+
+  // Save all of the bet information to local storage. 
+saveBets.addEventListener("click", function() {
+  // Loop through the 3 radio groups to see if a bet was taken
+  var l = document.getElementsByName("line")
+  var line = "";
+  var odds = "";
+  var over = "";
+  var lineDollars = 0;
+  var oddsDollars = 0;
+  var overDollars = 0;
+  var lineWin = 0;
+  var oddsWin = 0;
+  var overWin = 0;
+  var linePick = "";
+  var oddsPick = "";
+  var overPick = "";
+
+  for(i=0;i<l.length; i++){
+    if(l[i].checked) {
+      line = parseFloat(l[i].value);
+      lineDollars = parseFloat(lineBet.value);
+      // 2 is for no bet. 
+      if(i !=2){ 
+        lineWin = parseFloat(lineWinAmt.textContent).toFixed(2);
+        if(i==0) {
+          // The home Team was picked (Get the team abbreviation)
+          linePick = document.getElementById("home-team").innerHTML
+        } else {
+          // The away Team was picked
+          linePick = document.getElementById("away-team").innerHTML
+        }
+      }
+    }
+  }
+
+  l = document.getElementsByName("odds")
+  for(i=0;i<l.length; i++){
+    if(l[i].checked) {
+      odds = parseFloat(l[i].value);
+      oddsDollars = parseFloat(oddsBet.value);
+      if(i!=2) {
+        oddsWin = parseFloat(oddsWinAmt.textContent).toFixed(2);
+        if(i==0) {
+          oddsPick = document.getElementById("home-team").innerHTML
+        } else {
+          oddsPick = document.getElementById("away-team").innerHTML
+        }
+      }
+    }
+  }
+
+  l = document.getElementsByName("over")
+  for(i=0;i<l.length; i++){
+    if(l[i].checked) {
+      over = parseFloat(l[i].value);
+      overDollars = parseFloat(overBet.value);
+      if(i!=2){
+        overWin = parseFloat(overWinAmt.textContent).toFixed(2);
+        if(i==0) {
+          overPick = document.getElementById("home-team").innerHTML
+        } else {
+          overPick = document.getElementById("away-team").innerHTML
+        }
+      }
+    }
+  }
+
+  var bets =  {
+    date: today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear(),
+    sport: whichSport, 
+    id: gameID,
+    home: homeTeam,
+    away: awayTeam,
+    line: line,
+    lineAmt: lineDollars,
+    lineToWin: parseFloat(lineWin),
+    linePick: linePick,
+    odds: odds,
+    oddsAmt: oddsDollars,
+    oddsToWin: parseFloat(oddsWin),
+    oddsPick: oddsPick,
+    over: over,
+    overAmt: overDollars,
+    overToWin: parseFloat(overWin),
+    overPick: overPick
+};
+
+var a = []; // Empty array to hold the localstorage objects
+
+// Parse the data back into an array of objects. 
+a = JSON.parse(localStorage.getItem("bets")) || [];
+a.push(bets); // Push in the new data. 
+
+// Serialize the data array back to a string and store it in local storage. 
+localStorage.setItem("bets", JSON.stringify(a));
+
+})
+
+// *******************************************************************************************
+// TODO: Retrieve the betting history from local storage and display on the page. 
+// *******************************************************************************************
 
 sportsLines.addEventListener("click", function(e){
   var rowNum = e.target.parentElement; // Gets the button of the clicked fontawesome image
@@ -478,28 +590,29 @@ sportsLines.addEventListener("click", function(e){
   hOdds.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[8].textContent);
 
   document.getElementById("h-line").innerHTML = tableBody.childNodes[tableRow -1].childNodes[6].textContent;
+  homeLine.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[6].textContent);
+
   document.getElementById("h-prob").innerHTML = tableBody.childNodes[tableRow -1].childNodes[7].textContent;
+
   document.getElementById("h-over").innerHTML = tableBody.childNodes[tableRow -1].childNodes[9].textContent;
+  homeOver.setAttribute("value", tableBody.childNodes[tableRow -1].childNodes[9].textContent);
 
   document.getElementById("a-odds").innerHTML = tableBody.childNodes[tableRow -1].childNodes[4].textContent;
   aOdds.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[4].textContent);
 
   document.getElementById("a-line").innerHTML = tableBody.childNodes[tableRow -1].childNodes[2].textContent;
+  awayLine.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[2].textContent);
+
   document.getElementById("a-prob").innerHTML = tableBody.childNodes[tableRow -1].childNodes[3].textContent;
+
   document.getElementById("a-over").innerHTML = "-" + tableBody.childNodes[tableRow -1].childNodes[9].textContent;
+  awayOver.setAttribute("value",tableBody.childNodes[tableRow -1].childNodes[9].textContent);
+
   document.getElementById("home-team").innerHTML = tableBody.childNodes[tableRow -1].childNodes[5].textContent;
   document.getElementById("away-team").innerHTML = tableBody.childNodes[tableRow -1].childNodes[1].textContent;
   homeTeam = tableBody.childNodes[tableRow -1].childNodes[5].getAttribute("data-team");
   awayTeam = tableBody.childNodes[tableRow -1].childNodes[1].getAttribute("data-team");
   
+  gameID =  e.target.parentElement.getAttribute("data-value");
+ 
 })
-
-// Add or remove the active class from the buttons. Modify to just check the class
-// for all 3 buttons and update accordingly.
-// pureButtons.addEventListener("click",function(e) {
-//   if(e.target.classList.contains("btn-active")) {
-//     e.target.classList.remove("btn-active");
-//   } else {
-//     e.target.classList.add("btn-active");
-//   }
-// })

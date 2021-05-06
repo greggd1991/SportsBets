@@ -6,16 +6,29 @@
 body {
   margin: 0;
 }
-
-.pure-button {
-  width: 200px;
+.red-text {
+  color: red;
+  font-weight: bold;
+}
+.disclaimer {
+  font-size: 0.7em;
+}
+.pure-button,
+.hist-btn {
+  width: 140px;
   margin: 10px;
   background: white;
   border: 1px solid darkblue;
   border-radius: 5px;
   box-shadow: 5px 6px #888888;
 }
-
+.hist-btn {
+  height: 92px;
+}
+.hist-btn:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
 #nba,
 #nhl,
 #mlb {
@@ -44,12 +57,10 @@ thead {
   text-align: center;
 }
 .header {
-  /* background-color:bisque; */
-  /* background-image: url("http://www.wakeforestlawreview.com/wp-content/uploads/2019/08/betting-1-768x432.png"); */
   background-image: url("../images/sports-header.jpg");
   background-repeat: no-repeat;
   background-size: 100% auto;
-  margin-bottom: 15px;
+  margin-bottom: -75px;
   padding: 5px;
   height: 180px;
   position: sticky;
@@ -62,10 +73,15 @@ h1 {
   padding-top: 3px;
 }
 
-.sports-lines,
-.sports-bet {
-  margin-left: 5px;
+.sports-lines {
   border-collapse: collapse;
+  font-size: 0.7em;
+}
+.sports-bet {
+  border-collapse: collapse;
+  font-size: 0.8em;
+  margin-top: 10px;
+  margin-left: 28px;
 }
 .sports-lines td,
 .sports-lines th,
@@ -110,9 +126,7 @@ td {
 .sports-standings td {
   text-align: left;
 }
-#dialog {
-  background-color: coral;
-}
+
 .fas {
   margin-right: 2px;
   color: var(--money);
@@ -138,21 +152,22 @@ td {
   overflow: auto; /* Enable scroll if needed */
   background-color: white;
   border: 1px solid darkblue;
-  font-size: 0.8em;
+  font-size: 0.6em;
 }
 
 #sports-modal input {
   display: inline;
 }
-#sports-modal form {
+.sports-bet td {
   padding-left: 5px;
+  text-align: center;
 }
-.sports-bet td,
+.sports-bet td input[type="number"] {
+  width: 60px;
+}
+#sports-modal form .sports-bet td,
 .sports-bet th {
   font-size: 1em;
-}
-.sports-bet td {
-  text-align: center;
 }
 .body-head {
   background-color: black;
@@ -175,13 +190,53 @@ td {
 .modalheader {
   border: 1px solid black;
   background-color: grey;
-  height: 35px;
+  height: 45px;
 }
 
+/* TODO: Finish the media queries for the responsive layout */
+
 /* media queries */
+/* 480px */
+@media screen and (min-width: 30em) {
+  .pure-button,
+  .hist-btn {
+    width: 200px;
+  }
+
+  .hist-btn {
+    height: 85px;
+  }
+  .sports-lines {
+    font-size: 0.9em;
+  }
+  .header {
+    margin-bottom: -50px;
+  }
+}
+/* 600px */
+@media screen and (min-width: 37.5em) {
+  .header {
+    margin-bottom: -50px;
+  }
+}
+/* 768px */
 @media screen and (min-width: 48em) {
   #sports-modal {
-    width: 40%;
+    width: 30%;
     left: 250px;
+    font-size: 0.8em;
+  }
+
+  .sports-bet td input[type="number"] {
+    width: 120px;
+  }
+  .sports-bet {
+    font-size: 0.8em;
+  }
+  .sports-lines {
+    font-size: 1em;
+  }
+  .header {
+    margin-bottom: 15px;
   }
 }
