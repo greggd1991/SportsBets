@@ -1,15 +1,64 @@
-# SportsBets
+# Sports Betting Simulator
 
-TASK
-Create a responsive sports gaming application that gives users a real live-time betting experience. This app will run in the browser and feature updated HTML and CSS powered by Javascript and JQuery. Users “practice money” will be saved to the console.
-USER STORY
-As a Sports fan I WANT an application that can provide sports gambling simulation
-ACCEPTANCE CRITERIA
-WHEN I open the page 
-I am directed to a homepage 
-WHEN I enter the page I’m allocated a certain amount of $
-WHEN I click on a sports category 
-THEN I’m directed to current days games
-WHEN I click the game 
-THEN I see the odds
-WHEN I click the game and enter my $, my account is updated'
+![homepage](assets/images/sports-header.jpg)
+
+## 1️⃣ Tasks
+
+---
+
+- Create a responsive sports gaming application that gives users a real live-time betting experience.
+- This app will run in the browser and feature updated HTML and CSS powered by Javascript and JQuery.
+- Users “betting history" will be saved to local storage.
+
+**USER STORY**
+
+```
+As a Sports fan I WANT an application that can provide sports gambling simulation.
+```
+
+## 📋 Acceptance Criteria
+
+---
+
+- WHEN I open the page I am directed to a homepage
+- WHEN I click on a sports category
+- THEN The games scheduled for the current day are displayed
+- THEN The standings for the current league are displayed
+- WHEN I click the game
+- THEN A dialog box opens with all of my betting options
+- WHEN I select a bet option and enter a dollar amount, my potential winnings are displayed
+- WHEN I click on a save button
+- THEN my bet options are saved to local storage
+- WHEN I click to view the history, my previous bets are displayed
+
+## 📸 Screenshots
+
+---
+
+Homepage
+
+![homepage](assets/images/homepage.jpg)
+
+Schedules and Standings
+
+![schedule](assets/images/schedule.jpg)
+
+Instructions/Disclaimer
+
+![instructions](assets/images/instructions.jpg)
+
+---
+
+Final results: [Sports Betting Simulator](https://malmason.github.io/workday-scheduler/)
+
+## 📱 Contacts
+
+---
+
+Malcolm Mason - [Github](https://github.com/malmason) Email: [Malcolm](mailto:malmason66@gmail.com) 📧
+
+Greg Davis - [Github](https://github.com/malmason) Email: [Greg](mailto:malmason66@gmail.com) 📧
+
+Marlon Pierre - [Github](https://github.com/malmason) Email: [Marlon](mailto:malmason66@gmail.com) 📧
+
+Alain Tagne - [Github](https://github.com/malmason) Email: [Alaine](mailto:malmason66@gmail.com) 📧
