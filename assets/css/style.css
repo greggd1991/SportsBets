@@ -22,7 +22,8 @@ body {
   border-radius: 5px;
   box-shadow: 5px 6px #888888;
 }
-.hist-btn {
+.hist-btn,
+.btn {
   height: 92px;
 }
 .hist-btn:hover {
@@ -73,7 +74,8 @@ h1 {
   padding-top: 3px;
 }
 
-.sports-lines {
+.sports-lines,
+.history-table {
   border-collapse: collapse;
   font-size: 0.7em;
 }
@@ -86,22 +88,27 @@ h1 {
 .sports-lines td,
 .sports-lines th,
 .sports-bet td,
-.sports-bet th {
+.sports-bet th,
+.history-table td,
+.history-table th {
   border: 1px solid #ddd;
   padding: 5px;
 }
 .sports-lines tr:nth-child(even),
-.sports-bet tr:nth-child(even) {
+.sports-bet tr:nth-child(even),
+.history-table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 .sports-lines tr:hover,
-.sports-bet tr:hover {
+.sports-bet tr:hover,
+.history-table tr:hover {
   background-color: #ddd;
 }
 
 .sports-lines th,
-.sports-bet th {
+.sports-bet th,
+.history-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -139,6 +146,10 @@ td {
   cursor: pointer;
   transform: scale(1.1);
   background-color: var(--light);
+}
+
+.hidden {
+  display: none;
 }
 /* Styles for custom modal */
 #sports-modal {
@@ -190,10 +201,8 @@ td {
 .modalheader {
   border: 1px solid black;
   background-color: grey;
-  height: 45px;
+  height: 65px;
 }
-
-/* TODO: Finish the media queries for the responsive layout */
 
 /* media queries */
 /* 480px */
@@ -207,7 +216,8 @@ td {
   .betx {
     height: 93px;
   }
-  .sports-lines {
+  .sports-lines,
+  .history-table {
     font-size: 0.9em;
   }
   .header {
@@ -220,13 +230,12 @@ td {
     margin-bottom: -20px;
   }
 
-  .sports-lines, 
-  .sports-standings {
+  .sports-lines,
+  .sports-standings,
+  .history-table {
     width: 94%;
     margin-left: 18px;
   }
-
-  /*  */
 }
 
 /* 650px */
@@ -235,34 +244,33 @@ td {
   .hist-btn {
     width: 250px;
   }
-
 }
 
 /* 768px */
 @media screen and (min-width: 48em) {
   #sports-modal {
-    width: 30%;
+    width: 40%;
     left: 250px;
-    font-size: 0.8em;
+    font-size: 1em;
   }
 
   .sports-bet td input[type="number"] {
     width: 120px;
   }
-  .sports-bet {
-    font-size: 0.8em;
+
+  .sports-standings {
+    font-size: 1em;
+    margin-left: 18px;
+    width: 100%;
   }
   .sports-lines,
-  .sports-stand {
+  .history-table {
     font-size: 1em;
-    width: 94%;
     margin-left: 18px;
+    width: 90%;
   }
 
   .header {
     margin-bottom: 15px;
   }
 }
-
-
-

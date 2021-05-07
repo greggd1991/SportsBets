@@ -14,7 +14,6 @@ var hOdds = document.getElementById("home-odds");
 var aOdds = document.getElementById("away-odds");
 var awayLine = document.getElementById("away-line");
 var homeLine = document.getElementById("home-line");
-var noLine = document.getElementById("no-line");
 var homeOver = document.getElementById("home-over");
 var awayOver = document.getElementById("away-over");
 var lineBet = document.getElementById("line-bet");
@@ -25,6 +24,11 @@ var lineWinAmt = document.getElementById("line-win-amt");
 var oddsWinAmt = document.getElementById("odds-win-amt");
 var overWinAmt = document.getElementById("over-win-amt");
 var saveBets = document.getElementById("saveBets");
+var noLine = document.getElementById("no-line");
+var noOdds = document.getElementById("no-odds");
+var noOver = document.getElementById("no-over");
+var btnHistory = document.getElementById("history");
+var historyBody = document.getElementById("history-body");
 
 // API Variables
 var baseballEndpoint = "https://v1.baseball.api-sports.io/";
@@ -44,6 +48,9 @@ var n = d.getTimezoneOffset(); // UTC Time offset in minutes
 var today = new Date();
 var whichSport = "";
 var gameID = ""; // For local storage.
+
+// Table variables
+
 
 function getGames(league){
 
@@ -397,7 +404,7 @@ sportsBody.addEventListener("click", function(e){
       break;
 
     case "odds":
-          if(e.target.value =="odds-no-bet") {
+      if(e.target.value =="odds-no-bet") {
         oddsBet.disabled = true;
       } else {
         oddsBet.disabled = false;
@@ -424,7 +431,7 @@ function updateBets(e){
   var amount = 0;
   console.log(e.target)
   switch (e.target.name) {
-    case "odds-bet":
+    case "odds":
       if(aOdds.checked){
         amount = parseInt(aOdds.value,10);
       }
@@ -437,21 +444,23 @@ function updateBets(e){
         oddsWinAmt.textContent = parseFloat((amount * oddsBet.value)/(100)).toFixed(2);
       }
 
-    case "line-bet":
+    case "line":
       if(awayLine.checked) {
         amount = parseInt(awayLine.value,10);
+        lineWinAmt.textContent = parseFloat(lineBet.value);
       }
       if(homeLine.checked) {
         amount = parseInt(homeLine.value,10);
-        lineWinAmt.textContent = parseFloat(lineBet.value);
+         lineWinAmt.textContent = parseFloat(lineBet.value);
       }
-      
-    case "over-bet":
+     
+    case "over":
       if(awayOver.checked) {
         amount = parseInt(awayOver.value,10);
+        overWinAmt.textContent = parseFloat(overBet.value);
       }
       if(homeOver.checked) {
-        amount = parseInt(homeOver.value,10);
+        amount = parseInt(homeOver.value,10);  
         overWinAmt.textContent = parseFloat(overBet.value);
       }
      
@@ -539,9 +548,9 @@ saveBets.addEventListener("click", function() {
       if(i!=2){
         overWin = parseFloat(overWinAmt.textContent).toFixed(2);
         if(i==0) {
-          overPick = document.getElementById("home-team").innerHTML
+          overPick = "Over";
         } else {
-          overPick = document.getElementById("away-team").innerHTML
+          overPick = "Under";
         }
       }
     }
@@ -575,12 +584,158 @@ a.push(bets); // Push in the new data.
 
 // Serialize the data array back to a string and store it in local storage. 
 localStorage.setItem("bets", JSON.stringify(a));
-
+// Close the bet form. 
+modal.style.display = "none";
+// Update the history
+getHistory();
 })
 
-// *******************************************************************************************
-// TODO: Retrieve the betting history from local storage and display on the page. 
-// *******************************************************************************************
+
+function getHistory(){
+  var history = JSON.parse(localStorage.getItem("bets")) || [];
+
+  if(history !== null) {
+    console.log(history);
+    for(i=0; i < history.length; i++) {
+      var tdLeague = document.createElement("td");
+      var tdDate = document.createElement("td");
+      var tdHome = document.createElement("td");
+      var tdAway = document.createElement("td");
+      var tdType = document.createElement("td");
+      var tdAmt = document.createElement("td");
+      var tdWin = document.createElement("td");
+      var tdTeam = document.createElement("td");
+      var tdLine = document.createElement("td");
+      var tdOdds = document.createElement("td");
+      var tdOver = document.createElement("td");
+      var trRow = document.createElement("tr");
+      tdLeague.textContent = history[i].sport;
+      tdDate.textContent = history[i].date;
+      tdHome.textContent = history[i].home;
+      tdAway.textContent = history[i].away;
+      // populate the line bet if it exists
+      if(history[i].lineToWin !=="" && history[i].lineToWin >0) {
+        tdType.textContent = "Line";
+        tdAmt.textContent = history[i].lineAmt;
+        tdWin.textContent = history[i].lineToWin;
+        tdTeam.textContent = history[i].linePick;
+        tdLine.textContent = history[i].line;
+        tdOdds.textContent = "";
+        tdOver.textContent = "";
+        trRow.appendChild(tdLeague);
+        trRow.appendChild(tdDate);
+        trRow.appendChild(tdHome);
+        trRow.appendChild(tdAway);
+        trRow.appendChild(tdType);
+        trRow.appendChild(tdAmt);
+        trRow.appendChild(tdWin);
+        trRow.appendChild(tdTeam);
+        trRow.appendChild(tdLine);
+        trRow.appendChild(tdOdds);
+        trRow.appendChild(tdOver);
+        historyBody.appendChild(trRow);
+      }
+    }
+  }
+  getOdds();
+}
+function getOdds() {
+  var history = JSON.parse(localStorage.getItem("bets")) || [];
+  if(history !== null) {
+    console.log(history);
+    for(i=0; i < history.length; i++) {
+      var tdLeague = document.createElement("td");
+      var tdDate = document.createElement("td");
+      var tdHome = document.createElement("td");
+      var tdAway = document.createElement("td");
+      var tdType = document.createElement("td");
+      var tdAmt = document.createElement("td");
+      var tdWin = document.createElement("td");
+      var tdTeam = document.createElement("td");
+      var tdLine = document.createElement("td");
+      var tdOdds = document.createElement("td");
+      var tdOver = document.createElement("td");
+      var trRow = document.createElement("tr");
+   
+      tdLeague.textContent = history[i].sport;
+      tdDate.textContent = history[i].date;
+      tdHome.textContent = history[i].home;
+      tdAway.textContent = history[i].away;
+
+      if(history[i].oddsToWin !=="" && history[i].oddsToWin >0) {
+        tdType.textContent = "Odds";
+        tdAmt.textContent = history[i].oddsAmt;
+        tdWin.textContent = history[i].oddsToWin;
+        tdTeam.textContent = history[i].oddsPick;
+        tdLine.textContent = "";
+        tdOdds.textContent = history[i].odds;
+        tdOver.textContent = "";
+        trRow.appendChild(tdLeague);
+        trRow.appendChild(tdDate);
+        trRow.appendChild(tdHome);
+        trRow.appendChild(tdAway);
+        trRow.appendChild(tdType);
+        trRow.appendChild(tdAmt);
+        trRow.appendChild(tdWin);
+        trRow.appendChild(tdTeam);
+        trRow.appendChild(tdLine);
+        trRow.appendChild(tdOdds);
+        trRow.appendChild(tdOver);
+        historyBody.appendChild(trRow);
+      }
+    }
+  }
+  getOver();
+}
+function getOver() {
+  var history = JSON.parse(localStorage.getItem("bets")) || [];
+  if(history !== null) {
+    console.log(history);
+    for(i=0; i < history.length; i++) {
+      var tdLeague = document.createElement("td");
+      var tdDate = document.createElement("td");
+      var tdHome = document.createElement("td");
+      var tdAway = document.createElement("td");
+      var tdType = document.createElement("td");
+      var tdAmt = document.createElement("td");
+      var tdWin = document.createElement("td");
+      var tdTeam = document.createElement("td");
+      var tdLine = document.createElement("td");
+      var tdOdds = document.createElement("td");
+      var tdOver = document.createElement("td");
+      var trRow = document.createElement("tr");
+   
+      tdLeague.textContent = history[i].sport;
+      tdDate.textContent = history[i].date;
+      tdHome.textContent = history[i].home;
+      tdAway.textContent = history[i].away;
+
+      if(history[i].overToWin !=="" && history[i].overToWin >0) {
+        tdType.textContent = "Over/Under";
+        tdAmt.textContent = history[i].overAmt;
+        tdWin.textContent = history[i].overToWin;
+        tdTeam.textContent = history[i].overPick;
+        tdLine.textContent = "";
+        tdOdds.textContent = "";
+        tdOver.textContent = history[i].over;
+        trRow.appendChild(tdLeague);
+        trRow.appendChild(tdDate);
+        trRow.appendChild(tdHome);
+        trRow.appendChild(tdAway);
+        trRow.appendChild(tdType);
+        trRow.appendChild(tdAmt);
+        trRow.appendChild(tdWin);
+        trRow.appendChild(tdTeam);
+        trRow.appendChild(tdLine);
+        trRow.appendChild(tdOdds);
+        trRow.appendChild(tdOver);
+        historyBody.appendChild(trRow);
+      }
+    }
+  } 
+}
+
+btnHistory.addEventListener("click", getHistory);
 
 sportsLines.addEventListener("click", function(e){
   var rowNum = e.target.parentElement; // Gets the button of the clicked fontawesome image
@@ -610,9 +765,20 @@ sportsLines.addEventListener("click", function(e){
 
   document.getElementById("home-team").innerHTML = tableBody.childNodes[tableRow -1].childNodes[5].textContent;
   document.getElementById("away-team").innerHTML = tableBody.childNodes[tableRow -1].childNodes[1].textContent;
-  homeTeam = tableBody.childNodes[tableRow -1].childNodes[5].getAttribute("data-team");
-  awayTeam = tableBody.childNodes[tableRow -1].childNodes[1].getAttribute("data-team");
+  homeTeam = tableBody.childNodes[tableRow -1].childNodes[5].textContent;
+  awayTeam = tableBody.childNodes[tableRow -1].childNodes[1].textContent;
   
   gameID =  e.target.parentElement.getAttribute("data-value");
+
+  // Clear any previous values from the betting form. 
+  lineBet.value = "";
+  overBet.value = "";
+  oddsBet.value = "";
+  lineWinAmt.textContent = "";
+  oddsWinAmt.textContent = "";
+  overWinAmt.textContent = "";
+  noLine.checked = true;
+  noOdds.checked = true;
+  noOver.checked = true;
  
 })
