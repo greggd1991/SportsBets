@@ -203,8 +203,9 @@ td {
     width: 200px;
   }
 
-  .hist-btn {
-    height: 85px;
+  .hist-btn,
+  .betx {
+    height: 93px;
   }
   .sports-lines {
     font-size: 0.9em;
@@ -216,9 +217,27 @@ td {
 /* 600px */
 @media screen and (min-width: 37.5em) {
   .header {
-    margin-bottom: -50px;
+    margin-bottom: -20px;
   }
+
+  .sports-lines, 
+  .sports-standings {
+    width: 94%;
+    margin-left: 18px;
+  }
+
+  /*  */
 }
+
+/* 650px */
+@media screen and (min-width: 40.6em) {
+  .pure-button,
+  .hist-btn {
+    width: 250px;
+  }
+
+}
+
 /* 768px */
 @media screen and (min-width: 48em) {
   #sports-modal {
@@ -233,10 +252,17 @@ td {
   .sports-bet {
     font-size: 0.8em;
   }
-  .sports-lines {
+  .sports-lines,
+  .sports-stand {
     font-size: 1em;
+    width: 94%;
+    margin-left: 18px;
   }
+
   .header {
     margin-bottom: 15px;
   }
 }
+
+
+

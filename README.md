@@ -57,8 +57,8 @@ Final results: [Sports Betting Simulator](https://malmason.github.io/workday-sch
 
 Malcolm Mason - [Github](https://github.com/malmason) Email: [Malcolm](mailto:malmason66@gmail.com) 📧
 
-Greg Davis - [Github](https://github.com/malmason) Email: [Greg](mailto:malmason66@gmail.com) 📧
+Greg Davis - [Github](https://github.com/g) Email: [Greg](mailto:greggd1991@gmail.com) 📧
 
-Marlon Pierre - [Github](https://github.com/malmason) Email: [Marlon](mailto:malmason66@gmail.com) 📧
+Marlon Pierre - [Github](https://github.com/mpierre24) Email: [Marlon](mailto:pierremlox@gmail.com) 📧
 
-Alain Tagne - [Github](https://github.com/malmason) Email: [Alaine](mailto:malmason66@gmail.com) 📧
+Alain Tagne - [Github](https://github.com/AlCharl88) Email: [Alain](mailto:alctagne@gmail.com) 📧
