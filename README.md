@@ -49,7 +49,7 @@ Instructions/Disclaimer
 
 ---
 
-Final results: [Sports Betting Simulator](https://malmason.github.io/workday-scheduler/)
+Final results: [Sports Betting Simulator](https://greggd1991.github.io/SportsBets/)
 
 ## 📱 Contacts
 
