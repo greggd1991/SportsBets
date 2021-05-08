@@ -2,6 +2,12 @@
 
 ![homepage](assets/images/sports-header.jpg)
 
+**Description**
+
+ Sports Bets app is intended to be used for individuals interested in gambling. This is a safe application, free that allows users to practice live Gambling using “fake” money.
+
+ The motivation behind this app came from the increase of states allowing sports gambling. Besides that, all the devs on the application had some prior experience placing sports bets.
+
 ## 1️⃣ Tasks
 
 ---
@@ -30,6 +36,20 @@ As a Sports fan I WANT an application that can provide sports gambling simulatio
 - WHEN I click on a save button
 - THEN my bet options are saved to local storage
 - WHEN I click to view the history, my previous bets are displayed
+
+
+**Technologies Used**
+```
+- Javascript
+- HTML
+- CSS
+- Pure CSS (Framework)
+- Moment (Date/Time Formatting)
+- JQueryUI (Modals)
+- Rapid API (Standings)
+- api-sports (Game odds for Hockey/Baseball/Basketball)
+
+```
 
 ## 📸 Screenshots
 
