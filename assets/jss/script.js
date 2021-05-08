@@ -154,8 +154,9 @@ for(i=0; i<data.games;++i) {
   
   }
     // Place the current league and current date above the schedule. 
-  
-  todaysGames.textContent = league + " games - " + today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear();
+
+  today = moment();
+  todaysGames.textContent = league + " - " + today.format("M" + "/" + "DD" + "/" + "YYYY");
 }
 
 })
@@ -557,7 +558,7 @@ saveBets.addEventListener("click", function() {
   }
 
   var bets =  {
-    date: today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear(),
+    date: today.format("M" + "/" + "DD" + "/" + "YYYY"),
     sport: whichSport, 
     id: gameID,
     home: homeTeam,
